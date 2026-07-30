@@ -11,8 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Statik fayllar (React build)
-app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+// Frontend (React) alohida xostingda ishlagani uchun bu yerda static fayllarga ehtiyoj yo'q
 
 // ==========================================
 // API ENDPOINTLAR
@@ -174,9 +173,9 @@ app.get('/api/count', async (req, res) => {
     }
 });
 
-// React SPA uchun fallback
-app.use((req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+// API ishlashini tekshirish uchun (va xatolik bermasligi uchun)
+app.get('/', (req, res) => {
+    res.send('✅ Mandat API ishlashga tayyor!');
 });
 
 app.listen(PORT, () => {
