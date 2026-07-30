@@ -99,29 +99,16 @@ function App() {
           <p className="subtitle">Mandat ma'lumotlari qidiruv tizimi</p>
         </header>
 
-        {/* Stats Cards */}
+        {/* Simple Stats Text */}
         {stats && (
-          <div className="stats-grid">
-            <div className="stat-card">
-              <div className="stat-icon">👥</div>
-              <div className="stat-value">{parseInt(stats.jami).toLocaleString()}</div>
-              <div className="stat-label">Jami abituriyentlar</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon">🏆</div>
-              <div className="stat-value">{stats.eng_yuqori}</div>
-              <div className="stat-label">Eng yuqori ball</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon">📊</div>
-              <div className="stat-value">{stats.o_rtacha}</div>
-              <div className="stat-label">O'rtacha ball</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon">📈</div>
-              <div className="stat-value">{stats.eng_past}</div>
-              <div className="stat-label">Eng past ball</div>
-            </div>
+          <div className="stats-text-container">
+            <span className="stat-text-item">👥 Jami: <strong>{parseInt(stats.jami).toLocaleString()}</strong></span>
+            <span className="stat-text-divider">•</span>
+            <span className="stat-text-item">🏆 Eng yuqori: <strong>{stats.eng_yuqori}</strong></span>
+            <span className="stat-text-divider">•</span>
+            <span className="stat-text-item">📊 O'rtacha: <strong>{stats.o_rtacha}</strong></span>
+            <span className="stat-text-divider">•</span>
+            <span className="stat-text-item">📉 Eng past: <strong>{stats.eng_past}</strong></span>
           </div>
         )}
 
