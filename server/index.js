@@ -184,5 +184,18 @@ app.listen(PORT, () => {
     console.log(`📡 API: port ${PORT} da tayyor`);
 });
 
+// ==========================================
+// RENDER SERVERNI UYG'OQ USHLASH (ANTI-SLEEP)
+// ==========================================
+// Render bepul tarifda server 15 daqiqa ishlatilmasa "uxlab" qoladi.
+// Buni oldini olish uchun server o'ziga-o'zi har 10 daqiqada so'rov yuborib turadi.
+const axios = require('axios');
+setInterval(() => {
+    const url = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+    axios.get(`${url}/api/count`)
+        .then(() => console.log('🔄 Anti-sleep ping muvaffaqiyatli!'))
+        .catch(() => console.log('⚠️ Anti-sleep ping xatosi.'));
+}, 10 * 60 * 1000); // 10 daqiqa
+
 // Telegram botni ham bitta process'da ishga tushirish (Render uchun qulay)
 require('./bot');
