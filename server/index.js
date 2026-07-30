@@ -181,5 +181,8 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
     console.log(`🚀 Server ${PORT}-portda ishga tushdi!`);
-    console.log(`📡 API: http://localhost:${PORT}/api`);
+    console.log(`📡 API: port ${PORT} da tayyor`);
 });
+
+// Telegram botni ham bitta process'da ishga tushirish (Render uchun qulay)
+require('./bot');

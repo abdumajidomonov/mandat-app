@@ -8,8 +8,8 @@
     "bot": "node server/bot.js",
     "import": "node scripts/import-csv.js",
     "build": "cd client && npm install && npm run build",
-    "dev": "concurrently \"npm run server\" \"npm run bot\" \"cd client && npm run dev\"",
-    "start": "concurrently \"npm run server\" \"npm run bot\""
+    "dev": "concurrently \"npm run server\" \"cd client && npm run dev\"",
+    "start": "node server/index.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
