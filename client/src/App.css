@@ -187,6 +187,7 @@ body {
 
 .filter-input,
 .filter-select {
+  width: 100%;
   padding: 0.7rem;
   border-radius: 0.5rem;
   border: 1px solid var(--border);
@@ -209,8 +210,9 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 1rem;
-  overflow: hidden;
+  overflow-x: auto;
   backdrop-filter: blur(10px);
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
@@ -341,6 +343,10 @@ tr:hover td {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .app {
+    padding: 1rem 0.5rem;
+  }
+
   .header h1 {
     font-size: 1.6rem;
   }
@@ -351,14 +357,31 @@ tr:hover td {
   
   .filters {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
   }
   
+  .filter-input, .filter-select {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
   td, th {
     padding: 0.6rem 0.5rem;
     font-size: 0.8rem;
+    white-space: nowrap;
   }
   
   .rank-total {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .filters {
+    grid-template-columns: 1fr;
   }
 }
