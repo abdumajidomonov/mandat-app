@@ -46,7 +46,7 @@ app.get('/api/search', async (req, res) => {
         if (/^\d+$/.test(q)) {
             results = await sql`
                 SELECT *, 
-                    RANK() OVER (ORDER BY ball DESC) as reyting
+                    (SELECT COUNT(*) + 1 FROM abituriyentlar r WHERE r.ball > abituriyentlar.ball AND r.ism != 'Topilmadi') as reyting
                 FROM abituriyentlar
                 WHERE abituriyent_id = ${q}
                 AND ism != 'Topilmadi'
@@ -56,7 +56,7 @@ app.get('/api/search', async (req, res) => {
             if (results.length === 0) {
                 results = await sql`
                     SELECT *, 
-                        RANK() OVER (ORDER BY ball DESC) as reyting
+                        (SELECT COUNT(*) + 1 FROM abituriyentlar r WHERE r.ball > abituriyentlar.ball AND r.ism != 'Topilmadi') as reyting
                     FROM abituriyentlar
                     WHERE abituriyent_id LIKE ${q + '%'}
                     AND ism != 'Topilmadi'
@@ -67,7 +67,7 @@ app.get('/api/search', async (req, res) => {
         } else {
             results = await sql`
                 SELECT *, 
-                    RANK() OVER (ORDER BY ball DESC) as reyting
+                    (SELECT COUNT(*) + 1 FROM abituriyentlar r WHERE r.ball > abituriyentlar.ball AND r.ism != 'Topilmadi') as reyting
                 FROM abituriyentlar
                 WHERE UPPER(ism) LIKE ${'%' + q.toUpperCase() + '%'}
                 AND ism != 'Topilmadi'
@@ -110,7 +110,7 @@ app.get('/api/top', async (req, res) => {
 
         const results = await sql`
             SELECT *, 
-                RANK() OVER (ORDER BY ball DESC) as reyting
+                (SELECT COUNT(*) + 1 FROM abituriyentlar r WHERE r.ball > abituriyentlar.ball AND r.ism != 'Topilmadi') as reyting
             FROM abituriyentlar
             WHERE ism != 'Topilmadi'
             AND ball >= ${parseFloat(minScore)}
@@ -138,7 +138,7 @@ app.get('/api/rank/:id', async (req, res) => {
     try {
         const results = await sql`
             SELECT *, 
-                RANK() OVER (ORDER BY ball DESC) as reyting,
+                (SELECT COUNT(*) + 1 FROM abituriyentlar r WHERE r.ball > abituriyentlar.ball AND r.ism != 'Topilmadi') as reyting,
                 (SELECT COUNT(*) FROM abituriyentlar WHERE ism != 'Topilmadi') as jami
             FROM abituriyentlar
             WHERE abituriyent_id = ${req.params.id}

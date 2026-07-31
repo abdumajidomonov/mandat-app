@@ -16,7 +16,7 @@ async function getTotal() {
 async function getRank(abituriyentId) {
     const results = await sql`
         SELECT *, 
-            RANK() OVER (ORDER BY ball DESC) as reyting
+            (SELECT COUNT(*) + 1 FROM abituriyentlar r WHERE r.ball > abituriyentlar.ball AND r.ism != 'Topilmadi') as reyting
         FROM abituriyentlar
         WHERE abituriyent_id = ${abituriyentId}
         AND ism != 'Topilmadi'
@@ -28,7 +28,7 @@ async function getRank(abituriyentId) {
 async function searchByName(name) {
     const results = await sql`
         SELECT *, 
-            RANK() OVER (ORDER BY ball DESC) as reyting
+            (SELECT COUNT(*) + 1 FROM abituriyentlar r WHERE r.ball > abituriyentlar.ball AND r.ism != 'Topilmadi') as reyting
         FROM abituriyentlar
         WHERE UPPER(ism) LIKE ${'%' + name.toUpperCase() + '%'}
         AND ism != 'Topilmadi'
