@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import './App.css'
 
-const API = 'https://dtmreyting.onrender.com/api'
+const API = import.meta.env.VITE_API_URL || '/api'
 
 function App() {
   const [query, setQuery] = useState('')
