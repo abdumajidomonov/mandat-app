@@ -1,4 +1,4 @@
-const { Telegraf } = require('telegraf');
+const { Telegraf, Markup } = require('telegraf');
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
@@ -57,7 +57,10 @@ bot.start(async (ctx) => {
         'Menga abituriyentning <b>ID raqamini</b> yoki <b>ism-familiyasini</b> yuboring, ' +
         'men sizga uning ballini va reytingini ko\'rsataman.\n\n' +
         `📊 Bazada jami <b>${jami.toLocaleString()}</b> ta abituriyent mavjud.\n\n` +
-        '💡 <i>Masalan:</i> <code>7088884</code> yoki <code>KARIMOV</code>'
+        '💡 <i>Masalan:</i> <code>7088884</code> yoki <code>KARIMOV</code>',
+        Markup.inlineKeyboard([
+            [Markup.button.webApp('🌐 Web ilovani ochish', 'https://mandat-app-web-94.onrender.com/')]
+        ])
     );
 });
 
@@ -71,7 +74,10 @@ bot.help((ctx) => {
         '📌 <b>Buyruqlar:</b>\n' +
         '/start — Botni ishga tushirish\n' +
         '/help — Yordam\n' +
-        '/stats — Statistika'
+        '/stats — Statistika',
+        Markup.inlineKeyboard([
+            [Markup.button.webApp('🌐 Web ilovani ochish', 'https://mandat-app-web-94.onrender.com/')]
+        ])
     );
 });
 
@@ -138,7 +144,12 @@ bot.on('text', async (ctx) => {
                     `📊 Umumiy Ball: <b>${item.ball}</b>\n` +
                     `🏆 Reyting: <b>#${rank.toLocaleString()}</b> / ${jami.toLocaleString()} ${medal}\n\n` +
                     `🔗 <a href="${detailUrl}">Batafsil</a>`,
-                    { disable_web_page_preview: true }
+                    { 
+                        disable_web_page_preview: true,
+                        ...Markup.inlineKeyboard([
+                            [Markup.button.webApp('🌐 Web ilovani ochish', 'https://mandat-app-web-94.onrender.com/')]
+                        ])
+                    }
                 );
             } else {
                 ctx.replyWithHTML(
@@ -163,7 +174,11 @@ bot.on('text', async (ctx) => {
                     result += `🏆 #${rank.toLocaleString()} ${medal}\n\n`;
                 }
                 result += '📌 Batafsil uchun <b>ID raqamini</b> yuboring.';
-                ctx.replyWithHTML(result);
+                ctx.replyWithHTML(result, {
+                    ...Markup.inlineKeyboard([
+                        [Markup.button.webApp('🌐 Web ilovani ochish', 'https://mandat-app-web-94.onrender.com/')]
+                    ])
+                });
             } else {
                 ctx.replyWithHTML(
                     `❌ <b>"${query}" bo'yicha hech kim topilmadi!</b>\n\n` +
