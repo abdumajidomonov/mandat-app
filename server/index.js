@@ -27,7 +27,7 @@ app.get('/api/stats', async (req, res) => {
                 MIN(ball) as eng_past,
                 ROUND(AVG(ball)::numeric, 1) as o_rtacha
             FROM abituriyentlar
-            WHERE ism != 'Topilmadi' AND ball > 0
+            WHERE ism != 'Topilmadi'
         `;
         res.json(result[0]);
     } catch (err) {
@@ -139,7 +139,7 @@ app.get('/api/rank/:id', async (req, res) => {
         const results = await sql`
             SELECT *, 
                 RANK() OVER (ORDER BY ball DESC) as reyting,
-                (SELECT COUNT(*) FROM abituriyentlar WHERE ism != 'Topilmadi' AND ball > 0) as jami
+                (SELECT COUNT(*) FROM abituriyentlar WHERE ism != 'Topilmadi') as jami
             FROM abituriyentlar
             WHERE abituriyent_id = ${req.params.id}
             AND ism != 'Topilmadi'
@@ -165,7 +165,7 @@ app.get('/api/count', async (req, res) => {
     try {
         const result = await sql`
             SELECT COUNT(*) as jami FROM abituriyentlar 
-            WHERE ism != 'Topilmadi' AND ball > 0
+            WHERE ism != 'Topilmadi'
         `;
         res.json(result[0]);
     } catch (err) {

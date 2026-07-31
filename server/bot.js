@@ -8,7 +8,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // Jami sonini olish
 async function getTotal() {
-    const result = await sql`SELECT COUNT(*) as jami FROM abituriyentlar WHERE ism != 'Topilmadi' AND ball > 0`;
+    const result = await sql`SELECT COUNT(*) as jami FROM abituriyentlar WHERE ism != 'Topilmadi'`;
     return parseInt(result[0].jami);
 }
 
@@ -85,7 +85,7 @@ bot.command('stats', async (ctx) => {
                 MIN(ball) as eng_past,
                 ROUND(AVG(ball)::numeric, 1) as o_rtacha
             FROM abituriyentlar
-            WHERE ism != 'Topilmadi' AND ball > 0
+            WHERE ism != 'Topilmadi'
         `;
         const s = stats[0];
         
