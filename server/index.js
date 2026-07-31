@@ -113,8 +113,8 @@ app.get('/api/top', async (req, res) => {
                 (SELECT COUNT(*) + 1 FROM abituriyentlar r WHERE r.ball > abituriyentlar.ball AND r.ism != 'Topilmadi') as reyting
             FROM abituriyentlar
             WHERE ism != 'Topilmadi'
-            AND ball >= ${parseFloat(minScore)}
-            AND ball <= ${parseFloat(maxScore)}
+            AND ball >= ${parseFloat(minScore)}::real
+            AND ball <= ${parseFloat(maxScore)}::real
             ORDER BY ${orderBy}
             LIMIT ${parseInt(limit)}
         `;
