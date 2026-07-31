@@ -178,9 +178,16 @@ bot.on('text', async (ctx) => {
 });
 
 // Botni ishga tushirish
-bot.launch()
-    .then(() => console.log('🤖 Telegram bot ishga tushdi!'))
-    .catch(err => console.error('❌ Bot xatosi:', err));
+const launchBot = () => {
+    bot.launch()
+        .then(() => console.log('🤖 Telegram bot ishga tushdi!'))
+        .catch(err => {
+            console.error('❌ Bot ulanishida xato (Boshqa server ishlayapti bo\'lishi mumkin):', err.message);
+            console.log('🔄 15 soniyadan so\'ng qayta urinib ko\'ramiz...');
+            setTimeout(launchBot, 15000);
+        });
+};
+launchBot();
 
 // Graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
